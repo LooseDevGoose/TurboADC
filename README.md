@@ -13,4 +13,5 @@ A couple known 'bugs' to be careful of, that will be fixed in later releases:
 3. The reporting tab is an unfinished feature. You can use it, but the health check component does nothing.
 
 Compiled download:
+https://mickhilhorst.com/wp-content/uploads/2022/01/TurboADC.zip
 
