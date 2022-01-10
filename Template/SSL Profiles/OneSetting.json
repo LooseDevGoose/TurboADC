@@ -1,0 +1,8 @@
+{
+    "sslprofile": 
+    {
+      	"denysslreneg": "NONSECURE"
+
+     }      
+    
+}

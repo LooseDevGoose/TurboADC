@@ -1,0 +1,569 @@
+#This file is the KIVIMD Designer file, similair to CSS stylesheets
+
+##############
+###Imports####
+##############
+
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import toast kivymd.toast.toast
+##############
+###/Imports/####
+##############
+
+####################
+###Custom Classes###
+####################
+#############################################################################
+#List Item for custom list in SSL Report function (where the issues are shown)
+<ListItemWithCheckbox>:
+    id: li
+    
+
+    IconLeftWidget:
+        icon: root.icon
+
+    RightCheckbox:
+        id: cb
+        on_press:
+            root.update_active(self.parent.parent.index, self.parent.parent.parent.parent.data)
+#############################################################################
+#SSL checkbox for public IP
+<Dialog_Requesting_Public_IP_And_Hostname>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDTextField:
+            id: publicipfield
+            hint_text: "Public IP"
+            text: "46.31.190.104"
+
+            required: True
+            max_text_length: 15
+
+        MDTextField:
+            id: publichostfield
+            hint_text: "Public Hostname"
+            required: True
+            text: "netscaler.loginconsultants.com"
+
+#############################################################################
+
+#############################################################################
+#Windows Manager, contains all windows
+WindowManager:
+    LoginScreen:
+    MainMenu:
+    Security_Scan_Virtual_Server_Table_Screen:
+        id: data_scr
+    Generate_Security_Scan_Results:
+
+#############################################################################
+
+######################
+###/Custom Classes/###
+######################
+
+
+
+#Initial Login Screen (First Screen!)
+<LoginScreen>:
+    name: "LoginScreen"
+
+    #Used for Login Background Color
+    MDBoxLayout:
+
+        md_bg_color: get_color_from_hex("#344954")
+
+
+    #Used for Login Card
+    MDCard:
+
+        size_hint: None, None
+        size: 400, 500
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        elevation: 30
+        radius: 30
+        #padding: 25
+        spacing: 25
+        orientation: 'vertical'
+        md_bg_color: get_color_from_hex("#292929")
+
+        #Grid for alignment of text / logo
+        GridLayout:
+            cols: 4
+            rows: 1
+            padding_y: 25
+            padding_x: 25
+            #Spacing Label
+            MDLabel:
+                text: ""
+
+            #Label containing welcome text
+            MDLabel:
+                id: welcome_label
+                text: "Turbo"
+                font_size: 40
+                
+            #Logo
+            Image:
+                source: 'Images/logo.png'
+                size_hint: 0.5, 0.5
+
+            #Spacing Label
+            MDLabel:
+                text: ""
+
+        #text field for ADC IP
+        MDTextField:
+            id: ns_ip
+            #text: "192.168.176.107"
+            hint_text: "Netscaler IP"
+            icon_right: "ip-network"
+            size_hint_x: None
+            width: 200
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            mode: "rectangle"
+            #required: True
+            max_text_length: 15
+            write_tab: False
+
+        #Text field for username
+        MDTextField:
+            id: ns_username
+            hint_text: "Username"
+            #text: "nsroot"
+            helper_text: "Hopefully not nsroot ;)"
+            helper_text_mode: "on_focus"
+            icon_right: "account"
+            size_hint_x: None
+            width: 200
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            mode: "rectangle"
+            #required: True
+            write_tab: False
+    
+
+        #Text field for password
+        MDTextField:
+            id: ns_password
+            #text: "nsroot1"
+            hint_text: "Password"
+            icon_right: "eye-off"
+            size_hint_x: None
+            width: 200
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            password: True
+            mode: "rectangle"
+            #required: True
+            write_tab: False
+
+        #Button to submit data to submitinfo()
+        MDFillRoundFlatButton:
+            text: "Login to ADC"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press: root.submitinfo()
+            on_press: app.change_screen('MainMenu') if root.submitinfo()==True else "LoginScreen"
+
+        #Button to quickly clear all text field information
+        MDFillRoundFlatButton:
+            text: "Clear Information"
+            font_size: 12
+            pos_hint: {"center_x": 0.5}
+            on_press: root.cleardata()
+
+
+        #Invisible label that can parse error messages if needed
+        Label:
+            id: error_label_login
+            italic: True
+            color: (1,0,0)
+            text: ""
+            font_size: 16
+            halign: 'center'
+            pos_hint: {"center_x": 0.5}
+#############################################################################
+#After Login Screen, Contains Navrail and Sub-Screens
+<MainMenu>:
+    name: "MainMenu"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+
+
+        MDToolbar:
+            title: 'MH ToolKit Menu'
+            md_bg_color: get_color_from_hex("#344954")
+            left_action_items: [["menu", lambda x: root.rail_open()]]
+
+
+        MDBoxLayout:
+
+            MDNavigationRail:
+                #Navigation ID
+                id: navrail
+
+                #Colors for NavRail
+                md_bg_color: get_color_from_hex("#344954")
+                color_normal: get_color_from_hex("#718089")
+                color_active: get_color_from_hex("#f3ab44")
+
+                #Allows Resizing
+                use_resizeable: True
+
+                #Button Hover
+                use_hover_behavior: True
+                hover_bg: 0, 0, 0, .2
+                width: 200
+
+                MDNavigationRailItem:
+
+                    icon: "cloud-tags"
+                    text: "Home"
+                    on_press: Screen_Manager.current = "Welcome_Screen"
+
+                MDNavigationRailItem:
+
+                    text: "Report"
+                    icon: "account"
+                    on_press: Screen_Manager.current = "Reporting"
+
+                MDNavigationRailItem:
+                    icon: "security"
+                    text: "SSL Check"
+                    on_press: app.change_screen('Security_Scan_Virtual_Server_Table_Screen')
+
+
+
+            #Controls NavRailScreens
+            ScreenManager:
+                id: Screen_Manager
+########################################################
+ #Welcome Screen
+                Screen:
+                    name: "Welcome_Screen"
+                    MDBoxLayout:
+
+                        MDCard:
+                            size_hint: 1, 1
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                            orientation: 'vertical'
+                            md_bg_color: get_color_from_hex("#292929")
+
+                            GridLayout:
+                                cols: 1
+                                rows: 3
+                                padding: 5
+                                spacing: 5
+                                adaptive_size: True
+
+
+                                MDCard:
+                                    size_hint_y: 0.01
+                                    MDLabel:
+
+                                        halign: 'center'
+                                        font_size: 15
+                                        id: welcomename
+                                        text: "#Username#"
+                                MDCard:
+                                    size_hint_y: 0.01
+                                    MDLabel:
+
+                                        halign: 'center'
+                                        font_size: 15
+                                        id: welcomeip
+                                        text: "#NetscalerIP#"
+
+
+
+#############################################################################
+                #Reporting Screen
+                Screen:
+                    name: "Reporting"
+
+                    MDCard:
+
+                        orientation: 'vertical'
+                        #background color behind two cards
+                        md_bg_color: get_color_from_hex("#283740")
+                        #spacing: 25
+                        padding: 15
+
+
+                        GridLayout:
+                            cols: 2
+                            rows: 1
+                            padding: 5
+                            spacing: 15
+                            adaptive_size: True
+
+                            #Report Servers Card
+                            MDCard:
+                                orientation: 'vertical'
+                                md_bg_color: get_color_from_hex("#292929")
+                                spacing: 25
+                                radius: 12
+                                size_hint: 1, 0.5
+
+                            #Create list for report Checkbox
+                                MDLabel:
+                                    text: "Virtual Server Report"
+                                    text_color: 22, 13, 6, 1
+                                    font_size: 24
+                                    halign: 'center'
+
+
+                                MDList:
+
+
+                                    #Load Balancing Option
+                                    OneLineAvatarIconListItem:
+                                        text: "Load Balancing"
+                                        padding: 20
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+                                            MDCheckbox:
+                                                id: LBRCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+
+
+
+                                    #Content Switching Option
+                                    OneLineAvatarIconListItem:
+                                        text: "Content Switching"
+
+                                        padding: 20
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+
+                                            MDCheckbox:
+                                                id: CSRCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+
+
+
+                                    #Citrix Gateway Option
+                                    OneLineAvatarIconListItem:
+                                        text: "VPN / Gateway"
+                                        padding: 20
+
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+
+                                            MDCheckbox:
+                                                id: VPNRCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+
+                                    #Citrix AAA Virtual Servers
+                                    OneLineAvatarIconListItem:
+                                        text: "AAA"
+                                        padding: 20
+
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+
+                                            MDCheckbox:
+                                                id: AAARCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+
+                                    #Citrix GSLB Virtual Servers
+                                    OneLineAvatarIconListItem:
+                                        text: "GSLB"
+                                        padding: 20
+
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+
+                                            MDCheckbox:
+                                                id: GSLBRCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+
+
+
+
+
+                                #Generate Report Button
+                                MDFillRoundFlatButton:
+                                    text: "Generate Virtual Server Report"
+                                    padding: 20
+                                    pos_hint: {"center_x": 0.5}
+                                    on_press: root.Create_Report_Selected_Servers()
+
+
+
+
+
+
+                            #Health Check Card
+                            MDCard:
+                                orientation: 'vertical'
+                                md_bg_color: get_color_from_hex("#292929")
+                                spacing: 25
+                                radius: 12
+
+                                #Create list for Health Checkboxes
+                                MDLabel:
+                                    text: "Health Check Report"
+                                    text_color: 22, 13, 6, 1
+                                    font_size: 24
+                                    halign: 'center'
+
+
+                                MDList:
+
+
+                                    #Load Balancing Option
+                                    OneLineAvatarIconListItem:
+                                        text: "Load Balancing"
+                                        padding: 20
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+                                            MDCheckbox:
+                                                id: LBHCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+
+
+
+                                    #Content Switching Option
+                                    OneLineAvatarIconListItem:
+                                        text: "Content Switching"
+
+                                        padding: 20
+                                        ImageRightWidget:
+                                            ripple_scale: 0
+
+                                            MDCheckbox:
+                                                id: CSHCheckbox
+                                                active: True
+                                                ripple_scale: 0
+
+                                MDFillRoundFlatButton:
+                                    text: "Generate Health report"
+                                    padding: 20
+                                    pos_hint: {"center_x": 0.5}
+                                    on_press: root.GetHealthServers()
+
+
+#############################################################################
+
+
+#############################################################################
+
+
+#SSL Labs generate DataTable
+<Security_Scan_Virtual_Server_Table_Screen>:
+
+    name: "Security_Scan_Virtual_Server_Table_Screen"
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDToolbar:
+            title: 'SSL Labs Checker'
+            md_bg_color: get_color_from_hex("#344954")
+            left_action_items: [["keyboard-return", lambda x: app.change_screen('MainMenu')]]
+
+        MDCard:
+            md_bg_color: get_color_from_hex("#292929")
+
+            FloatLayout:
+
+                MDFillRoundFlatButton:
+                    text: "Back to menu"
+                    custom_color: 250,1,1,1
+                    on_release:
+                        app.change_screen('MainMenu')
+
+                MDDropDownItem:
+
+                    id: dropdown_item
+                    text: 'Select SSL Template'
+                    pos_hint: {"center_x": 1.4, "center_y": 0.03}
+                    dropdown_bg: [0, 255, 0, 0.5]
+                    on_press: root.Get_SSL_Templates()
+                    on_release: root.menu.open()
+
+                MDFillRoundFlatButton:
+                    text: "SSL Labs Check for selected server"
+                    pos_hint: {"center_x": 1.8}
+                    on_release:
+                        root.startCheck()
+                        app.change_screen('Generate_Security_Scan_Results')
+
+            AnchorLayout:
+                id: data_layout
+#############################################################################
+
+<Generate_Security_Scan_Results>:
+    name: "Generate_Security_Scan_Results"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDToolbar:
+            title: 'SSL Labs Checker'
+            md_bg_color: get_color_from_hex("#344954")
+            left_action_items: [["keyboard-return", lambda x: app.change_screen('MainMenu')]]
+
+
+        GridLayout:
+            cols: 1
+            rows: 2
+            padding: 5
+            spacing: 15
+            adaptive_size: True
+
+            MDCard:
+                size_hint_y: 0.2
+                orientation: 'vertical'
+                MDLabel:
+                    halign: 'center'
+                    font_size: 40
+                    id: vserverlabel
+                    text: "If you see this, you broke the program!"
+
+                MDLabel:
+                    halign: 'center'
+                    font_size: 12
+                    id: vserverstatus
+                    text: "detected 0 profile mismatch(es)"
+
+
+            MDCard:
+                id: container
+                orientation: 'vertical'
+                
+                RV:
+                    id: rvs
+                    viewclass: 'ListItemWithCheckbox'
+                    RecycleBoxLayout:
+                        id: boxlayout
+                        default_size: None, 100
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
+
+                MDFillRoundFlatButton:
+                    text: "Fix Selection"
+                    pos_hint: {"center_x": 0.5}
+                    font_size: 24
+                    on_release: root.save_checked()
