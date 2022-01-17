@@ -103,12 +103,66 @@ class Generate_Virtual_Server_Health_Report():
         pass
 
 
-class Print_Report_To_HTML():
+class Print_Virtual_Server_Report_To_HTML():
 
     # Reporting Functionality done with Pandas for Report Checkboxes
     def GenerateReport(self, nameentries, ipentries, typeentries):
         df = pd.DataFrame(zip(nameentries, ipentries, typeentries), columns=[
                           'Name', 'IP', 'Type'])
+
+        # See: https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html#Building-styles
+        def color_negative_red(val):
+            color = 'black'
+            return f'color: {color}'
+
+        styler = df.style.applymap(color_negative_red)
+
+        cwdtemplate = cwd + '\\Template\HtmlTemplates'
+
+        # Template handling
+        env = jinja2.Environment(
+            loader=jinja2.FileSystemLoader(searchpath=f'{cwdtemplate}'))
+        template = env.get_template('template.html')
+        html = template.render(my_table=styler.render())
+
+        # Writing of file
+
+        # Define Date/Time to use in name string
+        now = datetime.now()
+        dt_string = str(now.strftime("%d-%m-%Y %Hh%Mm%Ss"))
+
+        # Get current path and add \\Reports to the string
+        cwdreport = cwd + '\\Reports'
+
+        # Write report in raw (r) to support path, it writes to the 'reports' folder in the same dir
+        with open(fr"{cwdreport}\{dt_string}.html", 'w') as f:
+            f.write(html)
+
+        # place code here for when file is done writing Hooray!
+
+        # Open explorer to see file
+        os.startfile(fr'"{cwdreport}"')
+
+
+# Printing to report for SSL vulnerabilities found
+class Print_SSL_Findings_Report_To_HTML():
+
+    # Reporting Functionality done with Pandas for Report Checkboxes
+    def GenerateReport(self, findings_list):
+        hostname = []
+        setting = []
+        old_value = []
+        new_value = []
+        ssl_profile = []
+        for x in findings_list:
+            hostname.append(x['hostname'])
+            setting.append(x['setting'])
+            old_value.append(x['old_value'])
+            new_value.append(x['new_value'])
+            ssl_profile.append(x['profile_name'])
+
+        df = pd.DataFrame(zip(hostname, setting, old_value, new_value, ssl_profile), columns=[
+                          'Virtual Server Name', 'Setting', 'Current Value', 'Expected Value', 'Applied SSL Profile'])
 
         # See: https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html#Building-styles
         def color_negative_red(val):

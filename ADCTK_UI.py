@@ -13,6 +13,7 @@
 import os
 from os import listdir
 from os.path import isfile, join
+from re import template
 from kivy.uix import recycleview
 
 # Import Kivy libraries
@@ -132,15 +133,11 @@ class RV(RecycleView):
         print(btn, btn.active)
 
 
+class WindowManager(ScreenManager):
+    pass
 ####################
 ###/Custom Classes/###
 ####################
-
-# Window Manager
-
-
-class WindowManager(ScreenManager):
-    pass
 
 
 class LoginScreen(Screen):
@@ -212,7 +209,6 @@ class MainMenu(Screen):
 
 class Security_Scan_Virtual_Server_Table_Screen(Screen):
 
-    # Define dict for virtual servers
     VirtualServerDict = {}
 
     # When screen opens this code executes:
@@ -231,7 +227,7 @@ class Security_Scan_Virtual_Server_Table_Screen(Screen):
             'center_y': 0.5,
             'center_x': 0.5
         },
-            size_hint=(0.98, 0.75),
+            size_hint=(1, 1),
             use_pagination=False,
             rows_num=len(rows),
             check=True,
@@ -239,7 +235,8 @@ class Security_Scan_Virtual_Server_Table_Screen(Screen):
             row_data=rows)
         self.data_tables.bind(on_check_press=self.on_check_press)
         # Add DataTable to screen
-        self.add_widget(self.data_tables)
+        vscard = self.ids.vscard
+        vscard.add_widget(self.data_tables)
 
     # Gets files from template folder and adds to list
     def Get_SSL_Templates(self):
@@ -295,8 +292,8 @@ class Security_Scan_Virtual_Server_Table_Screen(Screen):
 
     # Remove widget upon leaving screen (cleanup)
     def on_leave(self):
-
-        self.remove_widget(self.data_tables)
+        vscard = self.ids.vscard
+        vscard.remove_widget(self.data_tables)
         self.VirtualServerDict = {}
 
     # Parse the dictionary/list with all data to Next screen (SSL Report)
@@ -304,9 +301,13 @@ class Security_Scan_Virtual_Server_Table_Screen(Screen):
 
         global Public_Vserver_Dict
         Public_Vserver_Dict = self.VirtualServerDict
+
         global Selected_SSL_Template
         Selected_SSL_Template = self.Selected_Template
 
+        # Define overwrite variable based on checkbox
+        global overwrite_profile_checkbox_status
+        overwrite_profile_checkbox_status = self.ids.overwritecbx.active
 
 # Parse information to SSL labs API and return results in listview with checkboxes
 
@@ -314,6 +315,7 @@ class Security_Scan_Virtual_Server_Table_Screen(Screen):
 class Generate_Security_Scan_Results(Screen):
 
     def on_pre_enter(self):
+
         Vulnerabilities = self.create_list(Public_Vserver_Dict)
         self.create_entries(Vulnerabilities)
 
@@ -324,6 +326,7 @@ class Generate_Security_Scan_Results(Screen):
         # Amount of servers to check
         count = 0
         Vulnerabilitylist = []
+        convert_list = []
         # Iterate through Virtual Server Dict and assign hostname/ip to submit to ADCTK_SecurityScan
         for i in Public_Vserver_Dict:
             count += 1
@@ -343,10 +346,10 @@ class Generate_Security_Scan_Results(Screen):
 
             # instantiate ADCTK_SecurityScan
             i = ADCTK_SecurityScan.SSL_Hardening_Procedure()
+
             # Start report check with given hostname
-            convert_list = []
             convert_list.append(i.Check_If_SSL_Profile_Present(
-                Virtual_Server_Name, ns_session, Selected_SSL_Template))
+                Virtual_Server_Name, ns_session, Selected_SSL_Template, overwrite_profile_checkbox_status))
 
             for x in convert_list:
                 if x is not None:
@@ -359,7 +362,6 @@ class Generate_Security_Scan_Results(Screen):
             # Define amount of issues
             i = 0
 
-            # self.recycleview = RV()
             # For each Vulnerability discovered, create list item with name
             for y in Vulnerabilities:
 
@@ -369,10 +371,9 @@ class Generate_Security_Scan_Results(Screen):
                         f"Hostname: '{x[0]}' has value '{x[1]}' set to '{x[2]}' and it should be '{x[3]}'")
 
                     self.ids.rvs.data.append({'text': f"{key}", 'hostname': str(x[0]),
-                                              'setting': str(x[1]), 'old_value': str(x[2]), 'new_value': str(x[3]), 'icon': "alert-circle-outline", 'activated': True, 'index': i})
+                                              'setting': str(x[1]), 'old_value': str(x[2]), 'new_value': str(x[3]), 'profile_name': str(x[4]), 'icon': "alert-circle-outline", 'activated': True, 'index': i})
 
             # Add RecycleView to screen (required to optimize when using lots of entries)
-            # self.ids.container.add_widget(self.recycleview)
 
             # Set label to equal amount of issues
             if i == 1:
@@ -401,13 +402,20 @@ class Generate_Security_Scan_Results(Screen):
             if entry['activated'] == True:
                 # instantiate code here
                 selected_issues_to_fix.append(entry)
-        print(selected_issues_to_fix)
 
         Instantiate = ADCTK_SecurityScan.FixIssues()
         Instantiate.FixSelectedIssues(ns_session, selected_issues_to_fix)
         self.dialog = MDDialog(text="All done!",
-                               buttons=[MDFlatButton(text="OK", )])
+                               buttons=[MDFlatButton(text="OK", on_release=self.CloseDialog)])
         self.dialog.open()
+
+    def CloseDialog(self, inst):
+        self.dialog.dismiss()
+
+    def export_to_html(self):
+        findings_list = self.ids.rvs.data
+        i = ADCTK_ReportFunctionality.Print_SSL_Findings_Report_To_HTML()
+        i.GenerateReport(findings_list)
 
     def on_leave(self):
         self.remove_widget(self.ids.rvs)
@@ -424,7 +432,7 @@ class mhtk(MDApp):
         self.theme_cls.primary_palette = "Blue"
         self.theme_cls.hue = 700
         self.icon = "Images/Logo.png"
-        self.title = "MHTK 1.0.0"
+        self.title = "Turbo ADC 1.0.1"
 
     def change_screen(self, screen: str):
         self.root.current = screen

@@ -5,7 +5,7 @@
 ##############
 
 #:import get_color_from_hex kivy.utils.get_color_from_hex
-#:import toast kivymd.toast.toast
+
 ##############
 ###/Imports/####
 ##############
@@ -18,7 +18,6 @@
 <ListItemWithCheckbox>:
     id: li
     
-
     IconLeftWidget:
         icon: root.icon
 
@@ -120,7 +119,6 @@ WindowManager:
         #text field for ADC IP
         MDTextField:
             id: ns_ip
-            #text: "192.168.176.107"
             hint_text: "Netscaler IP"
             icon_right: "ip-network"
             size_hint_x: None
@@ -136,7 +134,6 @@ WindowManager:
         MDTextField:
             id: ns_username
             hint_text: "Username"
-            #text: "nsroot"
             helper_text: "Hopefully not nsroot ;)"
             helper_text_mode: "on_focus"
             icon_right: "account"
@@ -152,7 +149,6 @@ WindowManager:
         #Text field for password
         MDTextField:
             id: ns_password
-            #text: "nsroot1"
             hint_text: "Password"
             icon_right: "eye-off"
             size_hint_x: None
@@ -196,7 +192,6 @@ WindowManager:
 
     MDBoxLayout:
         orientation: 'vertical'
-
 
         MDToolbar:
             title: 'MH ToolKit Menu'
@@ -476,40 +471,64 @@ WindowManager:
     name: "Security_Scan_Virtual_Server_Table_Screen"
     MDBoxLayout:
         orientation: 'vertical'
+        md_bg_color: get_color_from_hex("#283740")
+        
         MDToolbar:
             title: 'SSL Labs Checker'
             md_bg_color: get_color_from_hex("#344954")
             left_action_items: [["keyboard-return", lambda x: app.change_screen('MainMenu')]]
 
-        MDCard:
-            md_bg_color: get_color_from_hex("#292929")
+        GridLayout:
+            cols: 1
+            rows: 2
+            padding: 5
+            spacing: 15
+            adaptive_size: True
 
-            FloatLayout:
+            MDCard:
+                id: vscard
+                
+                md_bg_color: get_color_from_hex("#292929")
+                
+            MDCard:
+                size_hint_y: 0.1
+                md_bg_color: get_color_from_hex("#292929")
+                
+                GridLayout:
+                    cols: 3
+                    rows: 1
+                    
+                    adaptive_size: True
 
-                MDFillRoundFlatButton:
-                    text: "Back to menu"
-                    custom_color: 250,1,1,1
-                    on_release:
-                        app.change_screen('MainMenu')
+                    OneLineAvatarIconListItem:
+                        size_hint_x: 0.2
+                        text: "Overwrite currently applied profile(s) if possible"
+                        padding: 20
+                        ImageRightWidget:
+                            ripple_scale: 0
+                            MDCheckbox:
+                                id: overwritecbx
+                                active: True
+                                ripple_scale: 0
 
-                MDDropDownItem:
 
-                    id: dropdown_item
-                    text: 'Select SSL Template'
-                    pos_hint: {"center_x": 1.4, "center_y": 0.03}
-                    dropdown_bg: [0, 255, 0, 0.5]
-                    on_press: root.Get_SSL_Templates()
-                    on_release: root.menu.open()
+                    MDDropDownItem:
 
-                MDFillRoundFlatButton:
-                    text: "SSL Labs Check for selected server"
-                    pos_hint: {"center_x": 1.8}
-                    on_release:
-                        root.startCheck()
-                        app.change_screen('Generate_Security_Scan_Results')
+                        id: dropdown_item
+                        text: 'Select SSL Template'
+                        
+                        dropdown_bg: [0, 255, 0, 0.5]
+                        on_press: root.Get_SSL_Templates()
+                        on_release: root.menu.open()
 
-            AnchorLayout:
-                id: data_layout
+                    MDFillRoundFlatButton:
+                        text: "SSL Labs Check for selected server"
+         
+                        on_release:
+                            root.startCheck()
+                            app.change_screen('Generate_Security_Scan_Results')
+
+
 #############################################################################
 
 <Generate_Security_Scan_Results>:
@@ -517,6 +536,7 @@ WindowManager:
 
     MDBoxLayout:
         orientation: 'vertical'
+        md_bg_color: get_color_from_hex("#283740")
 
         MDToolbar:
             title: 'SSL Labs Checker'
@@ -526,7 +546,7 @@ WindowManager:
 
         GridLayout:
             cols: 1
-            rows: 2
+            rows: 3
             padding: 5
             spacing: 15
             adaptive_size: True
@@ -562,8 +582,33 @@ WindowManager:
                         height: self.minimum_height
                         orientation: 'vertical'
 
-                MDFillRoundFlatButton:
-                    text: "Fix Selection"
-                    pos_hint: {"center_x": 0.5}
-                    font_size: 24
-                    on_release: root.save_checked()
+            MDCard:
+                size_hint_y: 0.1
+
+                GridLayout:
+                    cols: 4
+                    rows: 1
+                    padding: 5
+                    spacing: 50
+                    adaptive_size: False
+
+                    MDLabel:
+                        text: ""
+
+                    MDFillRoundFlatButton:
+                        text: "Generate report"
+                        font_size: 24
+                        on_release: root.export_to_html()
+                        halign: 'center'
+                    
+                    MDFillRoundFlatButton:
+                        text: "Fix Selection"
+                        font_size: 24
+                        halign: 'center'
+                        on_release: root.save_checked()
+
+                    MDLabel:
+                        text: ""
+                        
+
+            
