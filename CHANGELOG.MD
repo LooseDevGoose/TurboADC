@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
  
-## [1.1.0] - 13-01-2021
+## [1.1.0] - 17-01-2021
  
 ### Added
 - Toggable functionality to overwrite non-Turbo_ADC profiles
