@@ -14,7 +14,7 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 
 | Platform  | Architecture | Offline Install | Download |
 | ------------- | ------------- | ------------- | ------------- |
-| Windows  | x64 MSI  | ✅  |  [Download (not released yet :)](https://mickhilhorst.com)|
+| Windows  | x64 MSI  | ✅  |  [Download (not released yet :))](https://mickhilhorst.com)|
 
 
 ## Supported Platforms
