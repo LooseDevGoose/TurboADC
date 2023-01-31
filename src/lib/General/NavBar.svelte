@@ -11,13 +11,11 @@ async function logout(){
     const client = await getClient();
     const data =  Body.json({
 
-        logout: {
-         sessionid: `${auth}`
-        }
+        logout: {}
     }
             )
         //POST request to login endpoint on NetScaler
-    const response = await client.delete(`${protocol}://${netscaler_ip}/nitro/v1/config/logout`, data, {headers:{'Content-Type' : 'application/json', 'Cookie' : `NITRO_AUTH_TOKEN=${auth}`}} )
+    const response = await client.post(`${protocol}://${netscaler_ip}/nitro/v1/config/logout`, data, {headers:{'Content-Type' : 'application/json', 'Cookie' : `NITRO_AUTH_TOKEN=${auth}`}} )
 
     if(response.ok){
 
@@ -25,6 +23,7 @@ async function logout(){
     let response_data = await response.data
     console.log(response_data)
     alert("Logged out of your session!")
+    navigate("/")
     //refresh feed
   }else{
     alert("Something went wrong :(\n" + "Error:  \n" + response.data.message)
@@ -34,14 +33,14 @@ async function logout(){
 </script>
 
 <main>
-    <aside class="w-64 sticky top-0" aria-label="Sidebar">
+    <aside class="w-52 sticky top-0" aria-label="Sidebar">
         <div class="h-screen py-4 px-3 bg-dark-foreground  shadow-black shadow-xl ">
 
          <!--Logo & Subtext-->
             <div class="flex  justify-center overflow-clip">
                <img src={logo} height="120" width="120" alt="Goose Logo" class="m-auto"/>
             </div>   
-            <h1 class="font-medium text-sm text-gray-300 block text-center mt-4">Turbo Netscaler v1.0.3</h1>
+            <h1 class="font-medium text-sm text-gray-300 block text-center mt-4">Turbo Netscaler v1.3.0</h1>
             <hr class="my-4 h-px bg-gray-600 border-0">
          <!--List of buttons-->
          <ul class="space-y-3 ">
@@ -64,7 +63,7 @@ async function logout(){
               </li>
 
             <!--SSL Certificates-->
-              <li>
+              <!-- <li>
                <a href="/SSL_Profiles" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9333ea" class="w-6 h-6">
                      <path fill-rule="evenodd" d="M4.5 3.75a3 3 0 00-3 3v10.5a3 3 0 003 3h15a3 3 0 003-3V6.75a3 3 0 00-3-3h-15zm4.125 3a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm-3.873 8.703a4.126 4.126 0 017.746 0 .75.75 0 01-.351.92 7.47 7.47 0 01-3.522.877 7.47 7.47 0 01-3.522-.877.75.75 0 01-.351-.92zM15 8.25a.75.75 0 000 1.5h3.75a.75.75 0 000-1.5H15zM14.25 12a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H15a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3.75a.75.75 0 000-1.5H15z" clip-rule="evenodd" />
@@ -72,12 +71,12 @@ async function logout(){
                  
                <span class="flex-1 ml-3 whitespace-nowrap">Certificates</span>
               </a>
-           </li>
+           </li> -->
                  <br>
                  <hr class="my-4 border-gray-600 border-1">
            <!--Logout-->
                    <li class="bottom-0">
-                     <a href="/SSL_Profiles" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
+                     <a on:click={() => logout()}  class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9333ea" class="w-6 h-6">
                         <path d="M10.375 2.25a4.125 4.125 0 100 8.25 4.125 4.125 0 000-8.25zM10.375 12a7.125 7.125 0 00-7.124 7.247.75.75 0 00.363.63 13.067 13.067 0 006.761 1.873c2.472 0 4.786-.684 6.76-1.873a.75.75 0 00.364-.63l.001-.12v-.002A7.125 7.125 0 0010.375 12zM16 9.75a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6z" />  </svg>
                        

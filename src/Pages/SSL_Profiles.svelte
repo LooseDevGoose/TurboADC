@@ -2,11 +2,10 @@
 import { getClient, Body} from '@tauri-apps/api/http';
 import { onMount } from 'svelte';
 import NavBar from '../lib/General/NavBar.svelte';
-import UnsecureSSLCard from '../lib/SSL_Profiles/UnsecureSSLCard.svelte';
-import SecureSSLCard from '../lib/SSL_Profiles/SecureSSLCard.svelte';
+import SSLCard from '../lib/SSL_Profiles/SSLCard.svelte';
 import PageTitleCard from '../lib/General/PageTitleCard.svelte';
 import SSL_Profiles_Icon from '../../public/Icons/SSL_Profiles_Icon.svg';
-import SSLProfileList from '../lib/SSL_Profiles/SSLProfileList.svelte';
+import SSLProfileTable from '../lib/SSL_Profiles/SSLProfileTable.svelte';
 import SSLServersTable from '../lib/SSL_Profiles/SSLServersTable.svelte';
 import { Button, Modal} from 'flowbite-svelte';
 
@@ -205,11 +204,11 @@ onMount(async () => prescript())
               <!--First layer of cards -> 4 horizontal--> 
             <div class="grid gap-4 justify-between grid-cols-5">
                 {#if ssl_counters}
-                <UnsecureSSLCard title="SSLv3 Sessions" metric_value={ssl_counters.ssltotsslv3sessions} />
-                <UnsecureSSLCard title="TLS1.0 Sessions"  metric_value={ssl_counters.ssltottlsv1sessions}/>
-                <UnsecureSSLCard title="TLS1.1 Sessions"  metric_value={ssl_counters.ssltottlsv11sessions} />
-                <SecureSSLCard title="TLS1.2 Sessions"  metric_value={ssl_counters.ssltottlsv12sessions} />
-                <SecureSSLCard title="TLS1.3 Sessions"  metric_value={ssl_counters.ssltottlsv13sessions}/>  
+                <SSLCard title="SSLV3 Rate/s" metric_value={ssl_counters.ssltotsslv3sessionsrate} />
+                <SSLCard title="TLS1.0 Rate/s"  metric_value={ssl_counters.ssltottlsv1sessionsrate}/>
+                <SSLCard title="TLS1.1 Rate/s"  metric_value={ssl_counters.ssltottlsv11sessionsrate} />
+                <SSLCard title="TLS1.2 Rate/s" secure_cipher={true}  metric_value={ssl_counters.ssltottlsv12sessionsrate} />
+                <SSLCard title="TLS1.3 Rate/s" secure_cipher={true}  metric_value={ssl_counters.ssltottlsv13sessionsrate}/>  
                 {/if}       
             </div>
 
@@ -225,7 +224,7 @@ onMount(async () => prescript())
 
             </div>
             <div class="grid grid-cols-1 bg-dark-foreground rounded-md ">          
-                   <SSLProfileList ssl_profile_list={ssl_profile_list} refresh_feed={() => get_sslprofiles()} />            
+                   <SSLProfileTable ssl_profile_list={ssl_profile_list} refresh_feed={() => get_sslprofiles()} />            
             </div>
             <!--Server Table-->
             

@@ -81,8 +81,20 @@ async function get_ns_data(){
 
             <!--Events-->
             <h1 class="text-2xl font-mono text-gray-400  mt-24 p-2">Information</h1>
-            <div class="w-full h-72 bg-dark-foreground rounded-md">
-                 
+            <div class="w-full  bg-dark-foreground rounded-md">
+                <div>
+                    <h1 class="p-2 text-white font-bold text-xl">Welcome to Turbo Netscaler 1.3.0</h1>
+                    <p1 class="p-2 text-gray-300 font-mono">This is a very early build of Turbo NetScaler.</p1> <br>
+                    <p1 class="p-2 text-gray-300 font-mono">The current build is only a fraction of the total scope and is undergoing active development.</p1> <br>
+                    <p1 class="p-2 text-gray-300 font-mono">Turbo NetScaler is a free NetScaler toolkit, that I work on in my spare time.</p1> <br> <br>
+              
+                    <p1 class="p-2 text-gray-300 font-mono">Much Love,</p1> <br>
+                    <p1 class="p-2 text-gray-300 font-mono">Mick Hilhorst</p1> <br> <br>
+                    <p1 class="p-2 text-gray-300 font-mono">PS: I'm a hobbyist developer and am always willing to listen to feedback</p1> <br> <br>
+                    <br> <br> <br>
+                    <p1 class="p-2 text-gray-300 font-mono">Please <a class="underline text-blue-500" target="_tauri" href="https://github.com/LooseDevGoose/TurboNetScaler/issues">create an issue</a> for any problems you experience</p1>
+                </div>
+                
             </div>
 
           

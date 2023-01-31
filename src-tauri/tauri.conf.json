@@ -25,6 +25,7 @@
       "category": "DeveloperTool",
       "copyright": "Mick Hilhorst",
       "publisher":"Mick Hilhorst",
+     
       "deb": {
         "depends": []
       },
@@ -51,8 +52,12 @@
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "webviewInstallMode": {
+          "type": "offlineInstaller"
+        }
       }
+    
     },
     "security": {
       "csp": null
@@ -66,7 +71,7 @@
         "height": 900,
         "resizable": true,
         "title": "Turbo Netscaler",
-        "width": 1200
+        "width": 1330
       }
     ]
   }
