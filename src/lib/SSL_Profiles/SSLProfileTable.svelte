@@ -87,7 +87,7 @@ async function edit_ssl_profile(){
 
 
 
-<main>
+
     
 
     <table class=" text-xs lg:text-md text-center text-gray-500 dark:text-gray-400">
@@ -97,7 +97,7 @@ async function edit_ssl_profile(){
                  
                 </th>
                 <th scope="col" class="py-1.5 px-3 lg:py-3 lg:px-6">
-                    Profile Name
+                    <h1>profile name</h1>
                 </th>
                 <th scope="col" class="py-1.5 px-3 lg:py-3 lg:px-6">
                     SSLv3
@@ -127,7 +127,7 @@ async function edit_ssl_profile(){
                          <button on:click={() => modal_func(profile)} class=" bg-dark-sub-purple hover:bg-purple-800 p-2 m-1 rounded-md font-mono text-gray-200 ">Edit</button>
                          </div>
                 </td>
-                <th scope="row" class="py-2 px-3 lg:py-4 lg:px-6  text-gray-400 font-bold whitespace-nowrap">
+                <th scope="row" class="py-2 px-3 lg:py-4 lg:px-6  text-gray-400 font-bold truncate">
                     {profile.name}
                 </th>
                 {#if profile.ssl3 == 'DISABLED'}
@@ -199,7 +199,7 @@ async function edit_ssl_profile(){
   
 
 
-</main>
+
 
 <!--Edit SSL Profile Modal-->
 <Modal title="Edit SSL Profile"  bind:open={modal_edit_ssl_profile}>

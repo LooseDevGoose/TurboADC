@@ -63,7 +63,7 @@ function setAuthCookie(token){
 
     <!--Top layer-->
     <h1 class="text-gray-100 text-center font-bold text-2xl mt-6">Turbo Netscaler</h1>
-    <h1 class="text-gray-400 text-center font-bold text-xs divide-x-2">v1.3</h1>
+    <h1 class="text-gray-400 text-center font-bold text-xs divide-x-2">v1.3.0</h1>
 
     <!--Divider-->
     <div class="w-full border-b border-gray-600 py-2"></div>
@@ -71,7 +71,7 @@ function setAuthCookie(token){
     <!--Input Fields-->
     <div class="relative mt-6">
         <input  bind:value={netscaler_ip} type="text"  class="block px-2 pb-2  w-full text-sm text-gray-200 font-mono bg-[#1d1d1d] rounded-lg border-1 appearance-none   dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-800 peer" placeholder=" " />
-        <label for="" class="absolute text-sm text-gray-400  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 font-bold peer-focus:px-2 peer-focus:text-gray-200 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Netscaler FQDN</label>
+        <label for="" class="absolute text-sm text-gray-400  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 font-bold peer-focus:px-2 peer-focus:text-gray-200 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Netscaler IP / FQDN</label>
     </div>
 
     <div class="relative mt-6">

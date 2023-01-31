@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Turbo Netscaler",
-    "version": "1.3.0"
+    "version": "1.0.3"
 
   },
   "tauri": {
@@ -25,6 +25,11 @@
       "category": "DeveloperTool",
       "copyright": "Mick Hilhorst",
       "publisher":"Mick Hilhorst",
+      "windows": {
+        "webviewInstallMode":{
+          "type": "offlineInstaller"
+        }
+      },
       "deb": {
         "depends": []
       },
@@ -66,7 +71,7 @@
         "height": 900,
         "resizable": true,
         "title": "Turbo Netscaler",
-        "width": 1200
+        "width": 1330
       }
     ]
   }
