@@ -14,10 +14,8 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 
 | Platform  | Architecture | Offline Install (Increased Size) | Download |
 | ------------- | ------------- | ------------- | ------------- |
-
 | Windows  | x64 MSI  | ✅  |  [Download](https://drive.google.com/file/d/1oBMQG52OTdc0kEGbHTpzlcLpT2rnaikD/view?usp=sharing)|
 | Windows  | x64 MSI  | ❌  |  [Download](https://drive.google.com/file/d/1knPjBnCJNfW441WZB29HKJS9bspC76QP/view?usp=sharing)|
-
 
 
 ## Supported Platforms
