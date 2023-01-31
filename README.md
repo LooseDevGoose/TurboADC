@@ -49,4 +49,4 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 
 :beers: Mads Petersen, for sharing his Fort Knox level ciphergroups
 
-:beers: Steven Wright, for sharing his elaborate architecture documentation on NetScaler best-practices.
+:beers: Steven Wright, for sharing his elaborate architecture documentation on NetScaler best practices.
