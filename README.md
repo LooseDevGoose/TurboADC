@@ -10,13 +10,13 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 
 ## Downloads
 
-```markdown
+
 
 | Platform  | Architecture | Offline Install | Download |
 | ------------- | ------------- | ------------- | ------------- |
 | Windows  | x64  | (Y)  |  [Download](https://mickhilhorst.com)|
 
-```
+
 ## Supported Platforms
 
 - :white_check_mark: Windows
@@ -35,6 +35,8 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 	- :rocket: Automated Netscaler Migration
 	### Possible features
 	- :memo: Certificate automator
+	- :memo: Auto update for TurboNetscaler
+	- :memo: Message board on the dashboard for security messages
 	
 
 
