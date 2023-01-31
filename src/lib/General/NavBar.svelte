@@ -11,13 +11,11 @@ async function logout(){
     const client = await getClient();
     const data =  Body.json({
 
-        logout: {
-         sessionid: `${auth}`
-        }
+        logout: {}
     }
             )
         //POST request to login endpoint on NetScaler
-    const response = await client.delete(`${protocol}://${netscaler_ip}/nitro/v1/config/logout`, data, {headers:{'Content-Type' : 'application/json', 'Cookie' : `NITRO_AUTH_TOKEN=${auth}`}} )
+    const response = await client.post(`${protocol}://${netscaler_ip}/nitro/v1/config/logout`, data, {headers:{'Content-Type' : 'application/json', 'Cookie' : `NITRO_AUTH_TOKEN=${auth}`}} )
 
     if(response.ok){
 
@@ -25,6 +23,7 @@ async function logout(){
     let response_data = await response.data
     console.log(response_data)
     alert("Logged out of your session!")
+    navigate("/")
     //refresh feed
   }else{
     alert("Something went wrong :(\n" + "Error:  \n" + response.data.message)

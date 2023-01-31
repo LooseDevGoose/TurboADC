@@ -2,41 +2,49 @@
 import { getClient, Body} from '@tauri-apps/api/http';
 import {navigate} from "svelte-routing";
 
-let netscaler_ip = "192.168.176.107";
-let username = "nsroot";
-let password = "nsroot1";
+let netscaler_ip = "";
+let username = "";
+let password = "";
 let https_check = false;
 let protocol;
 
 
 
 async function create_session(){
-
-    const client = await getClient();
-
-    //Create body data for login 
-    const data =  Body.json({
-                
-                login:{
-                    username:username,
-                    password:password
-                }
-        
-            }
-           )
-    //define protocol based on checkbox
-    https_check ? protocol = "https" : protocol = "http"
-           
-            //POST request to login endpoint on NetScaler
-    const response = await client.post(`${protocol}://${netscaler_ip}/nitro/v1/config/login`, data, {headers:{'Content-Type' : 'application/json'}} )
     
-    //Get session ID data
-    if(response.ok && response.data['sessionid']){
-        setAuthCookie(response.data['sessionid']);
-        navigate("/Dashboard")
-    }else{
-        console.log("something went wrong")
-    }
+        const client = await getClient();
+
+        //Create body data for login 
+        const data =  Body.json({
+                    
+                    login:{
+                        username:username,
+                        password:password
+                    }
+            
+                }
+            )
+        //define protocol based on checkbox
+        https_check ? protocol = "https" : protocol = "http"
+        try{
+
+         
+        //POST request to login endpoint on NetScaler
+        const response = await client.post(`${protocol}://${netscaler_ip}/nitro/v1/config/login`, data, {headers:{'Content-Type' : 'application/json'}} )
+
+        //Get session ID data
+        if(response.ok && response.data['sessionid']){
+            setAuthCookie(response.data['sessionid']);
+            navigate("/Dashboard")
+        }else{
+            alert(response.data.message)
+        }
+        }catch (error){
+            alert(error)
+        }
+        
+
+
 
     };
 

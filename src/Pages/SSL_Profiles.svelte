@@ -204,11 +204,11 @@ onMount(async () => prescript())
               <!--First layer of cards -> 4 horizontal--> 
             <div class="grid gap-4 justify-between grid-cols-5">
                 {#if ssl_counters}
-                <SSLCard title="SSLV3 Sessions" metric_value={ssl_counters.ssltotsslv3sessions} />
-                <SSLCard title="TLS1.0 Sessions"  metric_value={ssl_counters.ssltottlsv1sessions}/>
-                <SSLCard title="TLS1.1 Sessions"  metric_value={ssl_counters.ssltottlsv11sessions} />
-                <SSLCard title="TLS1.2 Sessions" secure_cipher={true}  metric_value={ssl_counters.ssltottlsv12sessions} />
-                <SSLCard title="TLS1.3 Sessions" secure_cipher={true}  metric_value={ssl_counters.ssltottlsv13sessions}/>  
+                <SSLCard title="SSLV3 Rate/s" metric_value={ssl_counters.ssltotsslv3sessionsrate} />
+                <SSLCard title="TLS1.0 Rate/s"  metric_value={ssl_counters.ssltottlsv1sessionsrate}/>
+                <SSLCard title="TLS1.1 Rate/s"  metric_value={ssl_counters.ssltottlsv11sessionsrate} />
+                <SSLCard title="TLS1.2 Rate/s" secure_cipher={true}  metric_value={ssl_counters.ssltottlsv12sessionsrate} />
+                <SSLCard title="TLS1.3 Rate/s" secure_cipher={true}  metric_value={ssl_counters.ssltottlsv13sessionsrate}/>  
                 {/if}       
             </div>
 
