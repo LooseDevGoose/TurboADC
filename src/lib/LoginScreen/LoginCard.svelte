@@ -26,9 +26,7 @@ async function create_session(){
             )
         //define protocol based on checkbox
         https_check ? protocol = "https" : protocol = "http"
-        try{
-
-         
+        try{        
         //POST request to login endpoint on NetScaler
         const response = await client.post(`${protocol}://${netscaler_ip}/nitro/v1/config/login`, data, {headers:{'Content-Type' : 'application/json'}} )
 
@@ -42,24 +40,13 @@ async function create_session(){
         }catch (error){
             alert(error)
         }
-        
-
-
-
     };
-
 //Create cookies with the input to use throughout the session
 function setAuthCookie(token){
     document.cookie = `session_id = ${token}`
     document.cookie = `netscaler_ip = ${netscaler_ip}`
     document.cookie = `protocol = ${protocol}`
 }
-
-
-    
-
-
-
 </script>
 
 <main class="flex bg-dark-background h-screen w-screen items-center justify-center ">

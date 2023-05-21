@@ -17,6 +17,7 @@ const protocol = ('; '+document.cookie).split(`; protocol=`).pop().split(';')[0]
 
 //Bindings for Components
 let server_list = [];
+let ciphergroup_list = [];
 let ssl_profile_list;
 let ssl_counters;
 
@@ -162,6 +163,23 @@ async function get_sslprofiles(){
       }
 }
 
+//Get all Cipher Suits present on the Netscaler
+async function get_ciphergroups(){
+
+    const client = await getClient();
+           
+            //POST request to login endpoint on NetScaler
+      const response = await client.get(`${protocol}://${netscaler_ip}/nitro/v1/config/sslcipher`, {headers:{'Content-Type' : 'application/json', 'Cookie' : `NITRO_AUTH_TOKEN=${auth}`}} )
+
+      if(response.ok){
+
+        //assign data to variable for HTML useage
+        ciphergroup_list = await response.data
+        //reformat data for easier use
+        ciphergroup_list = ciphergroup_list.sslcipher
+      }
+}
+
 //Get all active SSL sessions 
 async function get_sslvserver_counters(){
 
@@ -176,7 +194,7 @@ async function get_sslvserver_counters(){
         ssl_counters = await response.data
         //reformat data for easier use
         ssl_counters = ssl_counters.ssl
-        console.log(ssl_counters)
+        
       }
 }
 
@@ -185,6 +203,7 @@ async function get_sslvserver_counters(){
 function prescript(){
     get_sslvserver_data()
     get_sslprofiles()
+    get_ciphergroups()
     get_sslvserver_counters()
 }
 
@@ -215,7 +234,7 @@ onMount(async () => prescript())
             
             <!-- SSL Profile Table-->
             <div class="flex mt-24 ">
-            <h1 class="text-xl font-mono text-gray-400  p-2">SSL Profile List</h1>
+            <h1 class="text-xl font-mono text-gray-400  p-2">SSL Profiles</h1>
             
                 <button on:click={() => {modal_new_ssl_profile = true}} class="group ml-2  bg-dark-sub-purple hover:bg-purple-900 text-gray-200 p-2 font-bold py-1 px-4 m-1 rounded inline-flex items-center">
                     <svg class="group-hover:animate-ping fill-current w-6 h-6 mr-2"  xmlns="http://www.w3.org/2000/svg" fill=null viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /> </svg>
@@ -228,13 +247,14 @@ onMount(async () => prescript())
             </div>
             <!--Server Table-->
             
-            <h1 class="text-2xl font-mono text-gray-400 mt-24 p-2">Virtual SSL Servers</h1>
+            <h1 class="text-2xl font-mono text-gray-400 mt-24 p-2">Assign Profiles</h1>
             <div class="min-w-full bg-dark-foreground rounded-md">
 
              {#if ssl_profile_list}              <!--Load Virtual servers after the API call is done-->
-            <SSLServersTable bind:server_list={server_list} bind:ssl_profile_list={ssl_profile_list}/>
+            <SSLServersTable bind:server_list={server_list} bind:ssl_profile_list={ssl_profile_list} bind:ciphergroup_list={ciphergroup_list}/>
             {/if}
         </div>
+        <button on:click={() => console.log(server_list)}>This is a button with text</button>
 
 </main>
 
@@ -244,7 +264,7 @@ onMount(async () => prescript())
 
 <!--New SSL Profile Modal-->
 <Modal title="Create new SSL Profile"  bind:open={modal_new_ssl_profile}>
-    <p class="text-sm font-mono">Entries have been prepopulated with best practices :). As long as you are on this page, any new profile will be populated based on your last submission</p>
+    <p class="text-sm font-mono">Entries have been prepopulated with best practices :). As long as you are on the SSL Profiles page, any new profile will be populated based on your last submission</p>
     <div class="flex items-center justify-left">
         <h1 class="text-md p-2 font-bold">Name:</h1>
         <input bind:value={default_data.name} class="ml-5 bg-gray-200 rounded-md p-2 border-1 w-full placeholder-red-800 " placeholder="String Value ">

@@ -51,11 +51,8 @@ async function get_ns_data(){
         if(throughput_consumption_out <=1){
             throughput_consumption_out="< 1"
         }
-
-      
-    
     }
-    }
+}
     //Refetch the metrics every 15 seconds
     setInterval(get_ns_data, 15000);
 

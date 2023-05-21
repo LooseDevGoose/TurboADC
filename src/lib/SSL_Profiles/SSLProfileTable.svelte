@@ -18,7 +18,6 @@ let modal_edit_ssl_profile = false;
 
 //SSL Profile data format, this can only contain the name + editable fields. Otherwise the API 'put' will fail.
 let ssl_profile_data = {
-
       name: "Turbo_Netscaler_SSLProfile",
       ssl3 : "ENABLED",
       tls1 : "DISABLED",
@@ -26,11 +25,9 @@ let ssl_profile_data = {
       tls12 : "ENABLED",
       tls13 : "DISABLED",
       hsts : "ENABLED"
-
 }
 
 function modal_func(profile){
-
     ssl_profile_data.name = profile.name
     ssl_profile_data.ssl3 = profile.ssl3
     ssl_profile_data.tls1 = profile.tls1
@@ -38,7 +35,7 @@ function modal_func(profile){
     ssl_profile_data.tls12 = profile.tls12
     ssl_profile_data.tls13 = profile.tls13
     ssl_profile_data.hsts = profile.hsts
-    
+
     console.log(profile)
     modal_edit_ssl_profile = true
 }
@@ -54,13 +51,8 @@ async function edit_ssl_profile(){
             ssl_profile_data[key] = Number(ssl_profile_data[key]);
         }
     }
-
-
-
     const client = await getClient();
-
     const data =  Body.json({
-
         sslprofile: ssl_profile_data
     })
     console.log(data)
@@ -78,18 +70,10 @@ async function edit_ssl_profile(){
     alert("Something went wrong :(\n" + "Error:  \n" + response.data.message)
   }
     console.log(response)
-
-
-
 }
 
 </script>
-
-
-
-
-    
-
+    <!--Table-->
     <table class=" text-xs lg:text-md text-center text-gray-500 dark:text-gray-400">
         <thead class="text-xs lg:text-lg text-dark-sub-purple uppercase border-2 border-dark-foreground font-mono bg-dark-background">
         

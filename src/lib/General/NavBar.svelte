@@ -48,17 +48,39 @@ async function logout(){
               <li>
                  <a href="/Dashboard" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
                     <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="#9333ea" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                    <span class="ml-3">Dashboard</span>
+                    <span class="ml-3">Home</span>
+                 </a>
+              </li>
+                  <!--Advanced Backup-->
+              <li>
+                  <a href="/AdvancedBackup" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9333ea" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 013.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 013.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 01-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875zm5.845 17.03a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V12a.75.75 0 00-1.5 0v4.19l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3z" clip-rule="evenodd" />
+                  <path d="M14.25 5.25a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963A5.23 5.23 0 0016.5 7.5h-1.875a.375.375 0 01-.375-.375V5.25z" />
+                  </svg>
+
+                    
+                  <span class="flex-1 ml-3 whitespace-nowrap">Advanced Backup</span>
                  </a>
               </li>
               <!--SSL Profiles-->
               <li>
-                  <a href="/SSL_Profiles" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
+                  <a href="/SSLProfiles" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9333ea" class="w-6 h-6">
                      <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
                    </svg>
                     
                   <span class="flex-1 ml-3 whitespace-nowrap">SSL Profiles</span>
+                 </a>
+              </li>
+                   <!--Search-->
+              <li>
+                  <a href="/Search" class="flex items-center p-2 text-base font-bold text-gray-300 rounded-lg dark:text-white hover:bg-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9333ea" class="w-6 h-6">
+                  <path d="M8.25 10.875a2.625 2.625 0 115.25 0 2.625 2.625 0 01-5.25 0z" />
+                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.125 4.5a4.125 4.125 0 102.338 7.524l2.007 2.006a.75.75 0 101.06-1.06l-2.006-2.007a4.125 4.125 0 00-3.399-6.463z" clip-rule="evenodd" />
+                  </svg>    
+                  <span class="flex-1 ml-3 whitespace-nowrap">Search</span>
                  </a>
               </li>
 
@@ -83,9 +105,7 @@ async function logout(){
                      <span class="flex-1 ml-3 whitespace-nowrap">Logout</span>
                     </a>
                  </li>
-       
            </ul>
-   
         </div>
      </aside>
 

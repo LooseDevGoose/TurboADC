@@ -1,5 +1,5 @@
 <script>
-  import { Router, Link, Route} from "svelte-routing";
+  import { Router, Route} from "svelte-routing";
 
 
   //Pages
@@ -9,7 +9,9 @@
   //Dashbaord
   import Dashboard from "./Pages/Dashboard.svelte";
   //SSL_Profiles
-  import SSL_Profiles from "./Pages/SSL_Profiles.svelte";
+  import SSL_Profiles from "./Pages/SSLProfiles.svelte";
+  //Advanced Backup
+  import AdvancedBackup from "./Pages/AdvancedBackup.svelte";
   
 
 
@@ -20,8 +22,8 @@
 
   <div>
     <Route path="Dashboard" component={Dashboard}/>
-    <Route path="SSL_Profiles" component={SSL_Profiles}/>
+    <Route path="SSLProfiles" component={SSL_Profiles}/>
+    <Route path="AdvancedBackup" component={AdvancedBackup}/>
     <Route path="/"><LoginScreen/></Route>
-   <!--<Route path="blog" component="{Blog}" /> -->
   </div>
 </Router>
