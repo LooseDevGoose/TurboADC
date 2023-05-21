@@ -33,7 +33,7 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 
 
 	### Currently in development
-	- :rocket: Advanced Backups
+	- :rocket: Advanced Backups & SSL Cipher automation
 	### Possible features
 	- :memo: Certificate automator
 	- :memo: Auto update for TurboNetscaler
