@@ -33,10 +33,11 @@ In case you have cool suggestions and/or questions: m.hilhorst@goose-it.nl
 
 
 	### Currently in development
-	- :rocket: Automated Netscaler Migration
+	 - N/A
 	### Possible features
 	- :memo: Certificate automator
 	- :memo: Auto update for TurboNetscaler
+	- :memo: Cleaner for signature files
 	- :memo: Message board on the dashboard for security messages
 	
 
